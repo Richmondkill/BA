@@ -1,0 +1,140 @@
+// Prisma schema for the simulated bank system.
+// Money is stored as Decimal(18,2) — never JS floats.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  CLIENT
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum TxType {
+  CREDIT // admin funding a wallet
+  DEBIT // client transfer out
+}
+
+enum TxStatus {
+  COMPLETED
+  BLOCKED // attempt rejected (over the transfer limit) — kept for audit
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  passwordHash String
+  name         String
+  role         Role
+  status       UserStatus @default(ACTIVE)
+
+  // Profile fields (editable by the user on their profile page)
+  firstName  String?
+  lastName   String?
+  phone      String?
+  bio        String?
+  avatarUrl  String?
+  country    String?
+  cityState  String?
+  postalCode String?
+  taxId      String?
+  facebook   String?
+  twitter    String?
+  linkedin   String?
+  instagram  String?
+
+  // Which admin created this user (null for the seeded super admin).
+  createdById String?
+  createdBy   User?   @relation("UserCreatedBy", fields: [createdById], references: [id])
+  createdUsers User[] @relation("UserCreatedBy")
+
+  // Only CLIENT users have a wallet.
+  wallet Wallet?
+
+  // Payees assigned to this client.
+  payees Payee[] @relation("ClientPayees")
+
+  // Payees this admin created.
+  createdPayees Payee[] @relation("PayeeCreatedBy")
+
+  // Transactions this user initiated (admin for CREDIT, client for DEBIT).
+  initiatedTransactions Transaction[] @relation("TxCreatedBy")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([createdById])
+  @@index([role])
+}
+
+model Wallet {
+  id       String @id @default(cuid())
+  userId   String @unique
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  balance  Decimal @default(0) @db.Decimal(18, 2)
+  currency String  @default("USD")
+
+  transferCount Int     @default(0)
+  transferLimit Int     @default(4)
+  isLocked      Boolean @default(false)
+
+  transactions Transaction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Payee {
+  id            String @id @default(cuid())
+  name          String
+  bankName      String
+  accountNumber String
+
+  clientId String
+  client   User   @relation("ClientPayees", fields: [clientId], references: [id], onDelete: Cascade)
+
+  createdById String
+  createdBy   User   @relation("PayeeCreatedBy", fields: [createdById], references: [id])
+
+  transactions Transaction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([clientId])
+}
+
+model Transaction {
+  id       String @id @default(cuid())
+  walletId String
+  wallet   Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  type        TxType
+  status      TxStatus @default(COMPLETED)
+  amount      Decimal  @db.Decimal(18, 2)
+  balanceAfter Decimal @db.Decimal(18, 2)
+  description String?
+
+  payeeId String?
+  payee   Payee?  @relation(fields: [payeeId], references: [id])
+
+  createdById String
+  createdBy   User   @relation("TxCreatedBy", fields: [createdById], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([walletId])
+  @@index([createdById])
+}

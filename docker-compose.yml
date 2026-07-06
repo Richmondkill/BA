@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: banksystem-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: bank
+      POSTGRES_PASSWORD: bank
+      POSTGRES_DB: banksystem
+    ports:
+      - "5433:5432"
+    volumes:
+      - banksystem_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bank -d banksystem"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  banksystem_pgdata:
