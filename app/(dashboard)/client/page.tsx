@@ -76,10 +76,10 @@ export default async function ClientDashboardPage() {
   const currency = wallet.currency;
   const balanceNum = wallet.balance.toNumber();
   const last4 = wallet.id.replace(/[^0-9]/g, "").slice(-4).padStart(4, "0");
-  const disabled =
-    wallet.isLocked ||
-    wallet.transferCount >= wallet.transferLimit ||
-    payees.length === 0;
+  // Only block when there's nothing to send to. A locked / over-limit wallet can
+  // still *attempt* a transfer: the server logs a BLOCKED audit row and returns
+  // the "contact support" message, which the launcher/QuickSend show on the click.
+  const disabled = payees.length === 0;
 
   // Monthly income / expense
   const incomeByMonth = Array(12).fill(0) as number[];

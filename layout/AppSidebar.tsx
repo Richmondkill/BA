@@ -42,7 +42,7 @@ export default function AppSidebar({ role }: { role: Role }) {
         )}
       </div>
 
-      <nav className="flex-1 overflow-y-auto no-scrollbar pb-6">
+      <nav className="min-h-0 flex-1 overflow-y-auto no-scrollbar pb-6">
         {showText ? (
           <p className="mb-3 px-1 text-[11px] font-semibold uppercase tracking-wider text-gray-400">
             Menu
@@ -87,7 +87,7 @@ export default function AppSidebar({ role }: { role: Role }) {
       </nav>
 
       {/* Footer: support widget */}
-      <div className="border-t border-gray-100 py-4 dark:border-gray-800">
+      <div className="shrink-0 border-t border-gray-100 py-4 dark:border-gray-800">
         {showText ? (
           <div className="rounded-xl bg-gradient-to-br from-brand-50 to-brand-100 p-4 dark:from-brand-500/10 dark:to-brand-500/[0.06]">
             <p className="text-sm font-semibold text-gray-800 dark:text-white/90">

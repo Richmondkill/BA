@@ -21,8 +21,11 @@ export default async function TransferPage() {
   }
 
   const payees = wallet.user.payees;
-  const paused = wallet.isLocked || wallet.transferCount >= wallet.transferLimit;
-  const disabled = paused || payees.length === 0;
+  // Note: we deliberately do NOT disable the button when the wallet is locked or
+  // over its transfer allowance. The client is allowed to *attempt* the transfer;
+  // the server logs a BLOCKED audit row and returns the "contact support" message,
+  // which the launcher surfaces as the "paused" modal.
+  const disabled = payees.length === 0;
   const holder = wallet.user.name ?? "";
   const last4 = wallet.id.replace(/[^0-9]/g, "").slice(-4).padStart(4, "0");
 
@@ -37,19 +40,7 @@ export default async function TransferPage() {
         </p>
       </div>
 
-      {paused && (
-        <div className="rounded-2xl border border-error-200 bg-error-50 p-5 dark:border-error-500/30 dark:bg-error-500/10">
-          <h3 className="text-sm font-semibold text-error-700 dark:text-error-400">
-            Account paused
-          </h3>
-          <p className="mt-1 text-sm text-error-600 dark:text-error-400">
-            Your account has been paused due to unusual transfer activity. Please
-            contact support to restore access.
-          </p>
-        </div>
-      )}
-
-      {!paused && payees.length === 0 && (
+      {payees.length === 0 && (
         <div className="rounded-2xl border border-warning-200 bg-warning-50 p-5 dark:border-warning-500/30 dark:bg-warning-500/10">
           <p className="text-sm text-warning-700 dark:text-warning-400">
             You have no payees assigned yet. Please contact support.
