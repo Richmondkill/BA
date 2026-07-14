@@ -29,6 +29,10 @@ export type PayeeMinAggregateOutputType = {
   name: string | null
   bankName: string | null
   accountNumber: string | null
+  institutionNumber: string | null
+  transitNumber: string | null
+  swift: string | null
+  address: string | null
   clientId: string | null
   createdById: string | null
   createdAt: Date | null
@@ -40,6 +44,10 @@ export type PayeeMaxAggregateOutputType = {
   name: string | null
   bankName: string | null
   accountNumber: string | null
+  institutionNumber: string | null
+  transitNumber: string | null
+  swift: string | null
+  address: string | null
   clientId: string | null
   createdById: string | null
   createdAt: Date | null
@@ -51,6 +59,10 @@ export type PayeeCountAggregateOutputType = {
   name: number
   bankName: number
   accountNumber: number
+  institutionNumber: number
+  transitNumber: number
+  swift: number
+  address: number
   clientId: number
   createdById: number
   createdAt: number
@@ -64,6 +76,10 @@ export type PayeeMinAggregateInputType = {
   name?: true
   bankName?: true
   accountNumber?: true
+  institutionNumber?: true
+  transitNumber?: true
+  swift?: true
+  address?: true
   clientId?: true
   createdById?: true
   createdAt?: true
@@ -75,6 +91,10 @@ export type PayeeMaxAggregateInputType = {
   name?: true
   bankName?: true
   accountNumber?: true
+  institutionNumber?: true
+  transitNumber?: true
+  swift?: true
+  address?: true
   clientId?: true
   createdById?: true
   createdAt?: true
@@ -86,6 +106,10 @@ export type PayeeCountAggregateInputType = {
   name?: true
   bankName?: true
   accountNumber?: true
+  institutionNumber?: true
+  transitNumber?: true
+  swift?: true
+  address?: true
   clientId?: true
   createdById?: true
   createdAt?: true
@@ -170,6 +194,10 @@ export type PayeeGroupByOutputType = {
   name: string
   bankName: string
   accountNumber: string
+  institutionNumber: string | null
+  transitNumber: string | null
+  swift: string | null
+  address: string | null
   clientId: string
   createdById: string
   createdAt: Date
@@ -202,6 +230,10 @@ export type PayeeWhereInput = {
   name?: Prisma.StringFilter<"Payee"> | string
   bankName?: Prisma.StringFilter<"Payee"> | string
   accountNumber?: Prisma.StringFilter<"Payee"> | string
+  institutionNumber?: Prisma.StringNullableFilter<"Payee"> | string | null
+  transitNumber?: Prisma.StringNullableFilter<"Payee"> | string | null
+  swift?: Prisma.StringNullableFilter<"Payee"> | string | null
+  address?: Prisma.StringNullableFilter<"Payee"> | string | null
   clientId?: Prisma.StringFilter<"Payee"> | string
   createdById?: Prisma.StringFilter<"Payee"> | string
   createdAt?: Prisma.DateTimeFilter<"Payee"> | Date | string
@@ -216,6 +248,10 @@ export type PayeeOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   bankName?: Prisma.SortOrder
   accountNumber?: Prisma.SortOrder
+  institutionNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  transitNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  swift?: Prisma.SortOrderInput | Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
   clientId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -233,6 +269,10 @@ export type PayeeWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Payee"> | string
   bankName?: Prisma.StringFilter<"Payee"> | string
   accountNumber?: Prisma.StringFilter<"Payee"> | string
+  institutionNumber?: Prisma.StringNullableFilter<"Payee"> | string | null
+  transitNumber?: Prisma.StringNullableFilter<"Payee"> | string | null
+  swift?: Prisma.StringNullableFilter<"Payee"> | string | null
+  address?: Prisma.StringNullableFilter<"Payee"> | string | null
   clientId?: Prisma.StringFilter<"Payee"> | string
   createdById?: Prisma.StringFilter<"Payee"> | string
   createdAt?: Prisma.DateTimeFilter<"Payee"> | Date | string
@@ -247,6 +287,10 @@ export type PayeeOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   bankName?: Prisma.SortOrder
   accountNumber?: Prisma.SortOrder
+  institutionNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  transitNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  swift?: Prisma.SortOrderInput | Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
   clientId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -264,6 +308,10 @@ export type PayeeScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Payee"> | string
   bankName?: Prisma.StringWithAggregatesFilter<"Payee"> | string
   accountNumber?: Prisma.StringWithAggregatesFilter<"Payee"> | string
+  institutionNumber?: Prisma.StringNullableWithAggregatesFilter<"Payee"> | string | null
+  transitNumber?: Prisma.StringNullableWithAggregatesFilter<"Payee"> | string | null
+  swift?: Prisma.StringNullableWithAggregatesFilter<"Payee"> | string | null
+  address?: Prisma.StringNullableWithAggregatesFilter<"Payee"> | string | null
   clientId?: Prisma.StringWithAggregatesFilter<"Payee"> | string
   createdById?: Prisma.StringWithAggregatesFilter<"Payee"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Payee"> | Date | string
@@ -275,6 +323,10 @@ export type PayeeCreateInput = {
   name: string
   bankName: string
   accountNumber: string
+  institutionNumber?: string | null
+  transitNumber?: string | null
+  swift?: string | null
+  address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   client: Prisma.UserCreateNestedOneWithoutPayeesInput
@@ -287,6 +339,10 @@ export type PayeeUncheckedCreateInput = {
   name: string
   bankName: string
   accountNumber: string
+  institutionNumber?: string | null
+  transitNumber?: string | null
+  swift?: string | null
+  address?: string | null
   clientId: string
   createdById: string
   createdAt?: Date | string
@@ -299,6 +355,10 @@ export type PayeeUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bankName?: Prisma.StringFieldUpdateOperationsInput | string
   accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  institutionNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.UserUpdateOneRequiredWithoutPayeesNestedInput
@@ -311,6 +371,10 @@ export type PayeeUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bankName?: Prisma.StringFieldUpdateOperationsInput | string
   accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  institutionNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -323,6 +387,10 @@ export type PayeeCreateManyInput = {
   name: string
   bankName: string
   accountNumber: string
+  institutionNumber?: string | null
+  transitNumber?: string | null
+  swift?: string | null
+  address?: string | null
   clientId: string
   createdById: string
   createdAt?: Date | string
@@ -334,6 +402,10 @@ export type PayeeUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bankName?: Prisma.StringFieldUpdateOperationsInput | string
   accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  institutionNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -343,6 +415,10 @@ export type PayeeUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bankName?: Prisma.StringFieldUpdateOperationsInput | string
   accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  institutionNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -364,6 +440,10 @@ export type PayeeCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   bankName?: Prisma.SortOrder
   accountNumber?: Prisma.SortOrder
+  institutionNumber?: Prisma.SortOrder
+  transitNumber?: Prisma.SortOrder
+  swift?: Prisma.SortOrder
+  address?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -375,6 +455,10 @@ export type PayeeMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   bankName?: Prisma.SortOrder
   accountNumber?: Prisma.SortOrder
+  institutionNumber?: Prisma.SortOrder
+  transitNumber?: Prisma.SortOrder
+  swift?: Prisma.SortOrder
+  address?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -386,6 +470,10 @@ export type PayeeMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   bankName?: Prisma.SortOrder
   accountNumber?: Prisma.SortOrder
+  institutionNumber?: Prisma.SortOrder
+  transitNumber?: Prisma.SortOrder
+  swift?: Prisma.SortOrder
+  address?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -502,6 +590,10 @@ export type PayeeCreateWithoutClientInput = {
   name: string
   bankName: string
   accountNumber: string
+  institutionNumber?: string | null
+  transitNumber?: string | null
+  swift?: string | null
+  address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPayeesInput
@@ -513,6 +605,10 @@ export type PayeeUncheckedCreateWithoutClientInput = {
   name: string
   bankName: string
   accountNumber: string
+  institutionNumber?: string | null
+  transitNumber?: string | null
+  swift?: string | null
+  address?: string | null
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -534,6 +630,10 @@ export type PayeeCreateWithoutCreatedByInput = {
   name: string
   bankName: string
   accountNumber: string
+  institutionNumber?: string | null
+  transitNumber?: string | null
+  swift?: string | null
+  address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   client: Prisma.UserCreateNestedOneWithoutPayeesInput
@@ -545,6 +645,10 @@ export type PayeeUncheckedCreateWithoutCreatedByInput = {
   name: string
   bankName: string
   accountNumber: string
+  institutionNumber?: string | null
+  transitNumber?: string | null
+  swift?: string | null
+  address?: string | null
   clientId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -585,6 +689,10 @@ export type PayeeScalarWhereInput = {
   name?: Prisma.StringFilter<"Payee"> | string
   bankName?: Prisma.StringFilter<"Payee"> | string
   accountNumber?: Prisma.StringFilter<"Payee"> | string
+  institutionNumber?: Prisma.StringNullableFilter<"Payee"> | string | null
+  transitNumber?: Prisma.StringNullableFilter<"Payee"> | string | null
+  swift?: Prisma.StringNullableFilter<"Payee"> | string | null
+  address?: Prisma.StringNullableFilter<"Payee"> | string | null
   clientId?: Prisma.StringFilter<"Payee"> | string
   createdById?: Prisma.StringFilter<"Payee"> | string
   createdAt?: Prisma.DateTimeFilter<"Payee"> | Date | string
@@ -612,6 +720,10 @@ export type PayeeCreateWithoutTransactionsInput = {
   name: string
   bankName: string
   accountNumber: string
+  institutionNumber?: string | null
+  transitNumber?: string | null
+  swift?: string | null
+  address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   client: Prisma.UserCreateNestedOneWithoutPayeesInput
@@ -623,6 +735,10 @@ export type PayeeUncheckedCreateWithoutTransactionsInput = {
   name: string
   bankName: string
   accountNumber: string
+  institutionNumber?: string | null
+  transitNumber?: string | null
+  swift?: string | null
+  address?: string | null
   clientId: string
   createdById: string
   createdAt?: Date | string
@@ -650,6 +766,10 @@ export type PayeeUpdateWithoutTransactionsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bankName?: Prisma.StringFieldUpdateOperationsInput | string
   accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  institutionNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.UserUpdateOneRequiredWithoutPayeesNestedInput
@@ -661,6 +781,10 @@ export type PayeeUncheckedUpdateWithoutTransactionsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bankName?: Prisma.StringFieldUpdateOperationsInput | string
   accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  institutionNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -672,6 +796,10 @@ export type PayeeCreateManyClientInput = {
   name: string
   bankName: string
   accountNumber: string
+  institutionNumber?: string | null
+  transitNumber?: string | null
+  swift?: string | null
+  address?: string | null
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -682,6 +810,10 @@ export type PayeeCreateManyCreatedByInput = {
   name: string
   bankName: string
   accountNumber: string
+  institutionNumber?: string | null
+  transitNumber?: string | null
+  swift?: string | null
+  address?: string | null
   clientId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -692,6 +824,10 @@ export type PayeeUpdateWithoutClientInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bankName?: Prisma.StringFieldUpdateOperationsInput | string
   accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  institutionNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPayeesNestedInput
@@ -703,6 +839,10 @@ export type PayeeUncheckedUpdateWithoutClientInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bankName?: Prisma.StringFieldUpdateOperationsInput | string
   accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  institutionNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -714,6 +854,10 @@ export type PayeeUncheckedUpdateManyWithoutClientInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bankName?: Prisma.StringFieldUpdateOperationsInput | string
   accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  institutionNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -724,6 +868,10 @@ export type PayeeUpdateWithoutCreatedByInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bankName?: Prisma.StringFieldUpdateOperationsInput | string
   accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  institutionNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.UserUpdateOneRequiredWithoutPayeesNestedInput
@@ -735,6 +883,10 @@ export type PayeeUncheckedUpdateWithoutCreatedByInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bankName?: Prisma.StringFieldUpdateOperationsInput | string
   accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  institutionNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -746,6 +898,10 @@ export type PayeeUncheckedUpdateManyWithoutCreatedByInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   bankName?: Prisma.StringFieldUpdateOperationsInput | string
   accountNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  institutionNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -787,6 +943,10 @@ export type PayeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   name?: boolean
   bankName?: boolean
   accountNumber?: boolean
+  institutionNumber?: boolean
+  transitNumber?: boolean
+  swift?: boolean
+  address?: boolean
   clientId?: boolean
   createdById?: boolean
   createdAt?: boolean
@@ -802,6 +962,10 @@ export type PayeeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   name?: boolean
   bankName?: boolean
   accountNumber?: boolean
+  institutionNumber?: boolean
+  transitNumber?: boolean
+  swift?: boolean
+  address?: boolean
   clientId?: boolean
   createdById?: boolean
   createdAt?: boolean
@@ -815,6 +979,10 @@ export type PayeeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   name?: boolean
   bankName?: boolean
   accountNumber?: boolean
+  institutionNumber?: boolean
+  transitNumber?: boolean
+  swift?: boolean
+  address?: boolean
   clientId?: boolean
   createdById?: boolean
   createdAt?: boolean
@@ -828,13 +996,17 @@ export type PayeeSelectScalar = {
   name?: boolean
   bankName?: boolean
   accountNumber?: boolean
+  institutionNumber?: boolean
+  transitNumber?: boolean
+  swift?: boolean
+  address?: boolean
   clientId?: boolean
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PayeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "bankName" | "accountNumber" | "clientId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["payee"]>
+export type PayeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "bankName" | "accountNumber" | "institutionNumber" | "transitNumber" | "swift" | "address" | "clientId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["payee"]>
 export type PayeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -862,6 +1034,10 @@ export type $PayeePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     name: string
     bankName: string
     accountNumber: string
+    institutionNumber: string | null
+    transitNumber: string | null
+    swift: string | null
+    address: string | null
     clientId: string
     createdById: string
     createdAt: Date
@@ -1296,6 +1472,10 @@ export interface PayeeFieldRefs {
   readonly name: Prisma.FieldRef<"Payee", 'String'>
   readonly bankName: Prisma.FieldRef<"Payee", 'String'>
   readonly accountNumber: Prisma.FieldRef<"Payee", 'String'>
+  readonly institutionNumber: Prisma.FieldRef<"Payee", 'String'>
+  readonly transitNumber: Prisma.FieldRef<"Payee", 'String'>
+  readonly swift: Prisma.FieldRef<"Payee", 'String'>
+  readonly address: Prisma.FieldRef<"Payee", 'String'>
   readonly clientId: Prisma.FieldRef<"Payee", 'String'>
   readonly createdById: Prisma.FieldRef<"Payee", 'String'>
   readonly createdAt: Prisma.FieldRef<"Payee", 'DateTime'>

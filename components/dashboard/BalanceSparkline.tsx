@@ -5,12 +5,18 @@ import type { ApexOptions } from "apexcharts";
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-export default function BalanceSparkline({ data }: { data: number[] }) {
+export default function BalanceSparkline({
+  data,
+  height = 90,
+}: {
+  data: number[];
+  height?: number;
+}) {
   const options: ApexOptions = {
     colors: ["#ec111a"],
     chart: {
       type: "area",
-      height: 90,
+      height,
       sparkline: { enabled: true },
       fontFamily: "Outfit, sans-serif",
     },
@@ -26,7 +32,7 @@ export default function BalanceSparkline({ data }: { data: number[] }) {
       options={options}
       series={[{ name: "Balance", data }]}
       type="area"
-      height={90}
+      height={height}
     />
   );
 }

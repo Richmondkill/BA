@@ -4,9 +4,20 @@ import { Prisma } from "@/generated/prisma/client";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/rbac";
-import { transferSchema } from "@/lib/validation";
+import { transferSchema, externalTransferSchema } from "@/lib/validation";
 import { parseAmount } from "@/lib/money";
-import { CONTACT_SUPPORT_MESSAGE, type ActionResult } from "@/lib/action-result";
+import { debitWallet } from "@/lib/wallet-debit";
+import {
+  CONTACT_SUPPORT_MESSAGE,
+  NOT_A_BENEFICIARY_MESSAGE,
+  type ActionResult,
+} from "@/lib/action-result";
+
+const TRANSFER_TYPE_LABEL: Record<string, string> = {
+  DOMESTIC_WIRE: "Domestic wire",
+  INTERNATIONAL_WIRE: "International wire",
+  EFT: "EFT",
+};
 
 class TransferError extends Error {}
 
@@ -118,4 +129,58 @@ export async function makeTransfer(formData: FormData): Promise<ActionResult> {
   revalidatePath("/client");
   revalidatePath("/client/transactions");
   return { ok: true };
+}
+
+/**
+ * External transfer to a Canadian account (domestic wire, international wire,
+ * or EFT) with manually entered banking details. Shares the wallet-debit and
+ * transfer-limit logic with the saved-beneficiary path; the recipient's details
+ * are recorded on the transaction description (no saved Payee row is created).
+ */
+export async function makeExternalTransfer(
+  formData: FormData
+): Promise<ActionResult> {
+  const session = await requireRole("CLIENT");
+  const clientId = session.user.id;
+
+  const parsed = externalTransferSchema.safeParse({
+    transferType: formData.get("transferType"),
+    recipientName: formData.get("recipientName"),
+    recipientAddress: formData.get("recipientAddress") || undefined,
+    bankName: formData.get("bankName"),
+    institutionNumber: formData.get("institutionNumber"),
+    transitNumber: formData.get("transitNumber"),
+    accountNumber: formData.get("accountNumber"),
+    swift: formData.get("swift") || undefined,
+    amount: formData.get("amount"),
+    currency: formData.get("currency") || undefined,
+    description: formData.get("description") || undefined,
+  });
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid input" };
+  }
+
+  let amount: Prisma.Decimal;
+  try {
+    amount = parseAmount(parsed.data.amount);
+  } catch (e) {
+    return { ok: false, error: (e as Error).message };
+  }
+
+  // Beneficiary gate: a client may only transfer to accounts they have on file.
+  // Match by account number against the client's saved beneficiaries.
+  const target = parsed.data.accountNumber.trim();
+  const beneficiaries = await prisma.payee.findMany({ where: { clientId } });
+  const beneficiary = beneficiaries.find((b) => b.accountNumber.trim() === target);
+  if (!beneficiary) {
+    return { ok: false, error: NOT_A_BENEFICIARY_MESSAGE };
+  }
+
+  const label = TRANSFER_TYPE_LABEL[parsed.data.transferType] ?? "Transfer";
+  const reference = parsed.data.description?.trim();
+  const description = `${beneficiary.name} · ${label}${
+    reference ? ` — ${reference}` : ""
+  }`;
+
+  return debitWallet({ clientId, amount, description, payeeId: beneficiary.id });
 }

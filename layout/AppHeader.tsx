@@ -20,6 +20,9 @@ export default function AppHeader({
   const { toggleSidebar, toggleMobileSidebar } = useSidebar();
   const [menuOpen, setMenuOpen] = useState(false);
   const initials = user.name.slice(0, 1).toUpperCase();
+  // Clients navigate via the bottom tab bar on mobile, so the drawer toggle is
+  // only useful on desktop (sidebar collapse). Admins keep it everywhere.
+  const isClient = user.role === "CLIENT";
 
   // Desktop toggles the collapse; mobile opens the drawer.
   const handleToggle = () => {
@@ -36,7 +39,9 @@ export default function AppHeader({
         <button
           aria-label="Toggle sidebar"
           onClick={handleToggle}
-          className="flex h-11 w-11 items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 dark:border-gray-800 dark:text-gray-400 dark:hover:bg-gray-800"
+          className={`h-11 w-11 items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 dark:border-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 ${
+            isClient ? "hidden lg:flex" : "flex"
+          }`}
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path
@@ -47,6 +52,17 @@ export default function AppHeader({
             />
           </svg>
         </button>
+
+        {isClient && (
+          <div className="flex items-center gap-2 lg:hidden">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-sm font-bold text-white shadow-theme-sm">
+              S
+            </span>
+            <span className="text-base font-semibold text-gray-800 dark:text-white/90">
+              Scotiabank
+            </span>
+          </div>
+        )}
 
         <div className="flex items-center gap-3">
           <ThemeToggleButton />

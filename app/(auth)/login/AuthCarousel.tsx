@@ -81,7 +81,12 @@ export default function AuthCarousel({
             alt="Scotiabank"
             className="h-11 w-11 rounded-xl object-cover shadow-theme-md"
           />
-          <span className="text-lg font-semibold">Scotiabank</span>
+          <span>
+            <span className="block text-lg font-semibold">Scotiabank</span>
+            <span className="block text-xs font-medium uppercase tracking-[0.24em] text-white/60">
+              You're richer than you think
+            </span>
+          </span>
         </div>
 
         <div className="max-w-md">
@@ -103,9 +108,7 @@ export default function AuthCarousel({
           {action && <div className="mt-8">{action}</div>}
         </div>
 
-        <p className="text-xs text-white/50">
-          (c) {year} Scotiabank. Simulated banking.
-        </p>
+        <p className="text-xs text-white/50">(c) {year} Scotiabank.</p>
       </div>
     </div>
   );

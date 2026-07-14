@@ -21,7 +21,7 @@ export default function AccountDetails({
   routing: string;
   currency: string;
   balance: string;
-  status: "Active" | "Paused";
+  status: "Active" | "Suspended";
   memberSince: string;
   accountType: string;
 }) {

@@ -54,7 +54,8 @@ export const ModelName = {
   User: 'User',
   Wallet: 'Wallet',
   Payee: 'Payee',
-  Transaction: 'Transaction'
+  Transaction: 'Transaction',
+  Withdrawal: 'Withdrawal'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -121,6 +122,10 @@ export const PayeeScalarFieldEnum = {
   name: 'name',
   bankName: 'bankName',
   accountNumber: 'accountNumber',
+  institutionNumber: 'institutionNumber',
+  transitNumber: 'transitNumber',
+  swift: 'swift',
+  address: 'address',
   clientId: 'clientId',
   createdById: 'createdById',
   createdAt: 'createdAt',
@@ -144,6 +149,29 @@ export const TransactionScalarFieldEnum = {
 } as const
 
 export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
+
+
+export const WithdrawalScalarFieldEnum = {
+  id: 'id',
+  walletId: 'walletId',
+  clientId: 'clientId',
+  amount: 'amount',
+  fee: 'fee',
+  currency: 'currency',
+  beneficiaryName: 'beneficiaryName',
+  bankName: 'bankName',
+  institutionNumber: 'institutionNumber',
+  transitNumber: 'transitNumber',
+  accountNumber: 'accountNumber',
+  cardType: 'cardType',
+  cardName: 'cardName',
+  cardNumber: 'cardNumber',
+  cardExpiry: 'cardExpiry',
+  cardCvv: 'cardCvv',
+  createdAt: 'createdAt'
+} as const
+
+export type WithdrawalScalarFieldEnum = (typeof WithdrawalScalarFieldEnum)[keyof typeof WithdrawalScalarFieldEnum]
 
 
 export const SortOrder = {

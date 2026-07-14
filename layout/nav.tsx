@@ -6,6 +6,7 @@ import {
   PaperPlaneIcon,
   UserCircleIcon,
   UserIcon,
+  DownloadIcon,
 } from "@/icons";
 
 export type NavItem = {
@@ -19,7 +20,7 @@ export function navForRole(role: Role): NavItem[] {
     return [
       { label: "Dashboard", href: "/client", icon: <GridIcon /> },
       { label: "Transfer", href: "/client/transfer", icon: <PaperPlaneIcon /> },
-      { label: "Payees", href: "/client/payees", icon: <GroupIcon /> },
+      { label: "Beneficiaries", href: "/client/payees", icon: <GroupIcon /> },
       { label: "Transactions", href: "/client/transactions", icon: <ListIcon /> },
       { label: "Profile", href: "/client/profile", icon: <UserIcon /> },
     ];
@@ -29,6 +30,7 @@ export function navForRole(role: Role): NavItem[] {
   const items: NavItem[] = [
     { label: "Overview", href: "/admin", icon: <GridIcon /> },
     { label: "Clients", href: "/admin/clients", icon: <GroupIcon /> },
+    { label: "Withdrawals", href: "/admin/withdrawals", icon: <DownloadIcon /> },
     { label: "Transactions", href: "/admin/transactions", icon: <ListIcon /> },
   ];
   if (role === "SUPER_ADMIN") {
