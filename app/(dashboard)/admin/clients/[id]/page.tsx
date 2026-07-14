@@ -15,6 +15,11 @@ import {
   FundWalletButton,
   AddPayeeButton,
   UnlockButton,
+  SendMailButton,
+  ClientStatusButton,
+  EditClientButton,
+  ResetPasswordButton,
+  DeleteClientButton,
 } from "./ClientActions";
 
 export default async function ClientDetailPage({
@@ -56,18 +61,44 @@ export default async function ClientDetailPage({
           ← Back to clients
         </Link>
         <div className="mt-2 flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <h1 className="text-title-sm font-bold text-gray-800 dark:text-white/90">
-              {client.name}
-            </h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {client.email}
-            </p>
+          <div className="flex items-center gap-3">
+            <div>
+              <h1 className="text-title-sm font-bold text-gray-800 dark:text-white/90">
+                {client.name}
+              </h1>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {client.email}
+              </p>
+            </div>
+            {client.status === "SUSPENDED" && (
+              <Badge color="error">Suspended</Badge>
+            )}
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
+            <SendMailButton email={client.email} name={client.name} />
             <AddPayeeButton clientId={client.id} />
             <FundWalletButton clientId={client.id} />
           </div>
+        </div>
+      </div>
+
+      {/* Account management */}
+      <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03]">
+        <h3 className="mb-1 font-semibold text-gray-800 dark:text-white/90">
+          Account management
+        </h3>
+        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+          Update this client&apos;s details, access, or remove them entirely.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <EditClientButton
+            clientId={client.id}
+            name={client.name}
+            email={client.email}
+          />
+          <ResetPasswordButton clientId={client.id} />
+          <ClientStatusButton clientId={client.id} status={client.status} />
+          <DeleteClientButton clientId={client.id} name={client.name} />
         </div>
       </div>
 
@@ -116,17 +147,17 @@ export default async function ClientDetailPage({
         </div>
       )}
 
-      {/* Payees */}
+      {/* Beneficiaries */}
       <div className="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
         <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4 dark:border-gray-800">
           <h3 className="font-semibold text-gray-800 dark:text-white/90">
-            Payees
+            Beneficiaries
           </h3>
           <AddPayeeButton clientId={client.id} />
         </div>
         {client.payees.length === 0 ? (
           <p className="px-5 py-6 text-sm text-gray-500 dark:text-gray-400">
-            No payees assigned yet.
+            No beneficiaries assigned yet.
           </p>
         ) : (
           <ul className="divide-y divide-gray-100 dark:divide-gray-800">

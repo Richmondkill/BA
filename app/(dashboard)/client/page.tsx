@@ -11,6 +11,7 @@ import QuickSend from "./QuickSend";
 import CopyButton from "./CopyButton";
 import AccountDetails from "./AccountDetails";
 import TransferLauncher from "./TransferLauncher";
+import WithdrawLauncher from "./WithdrawLauncher";
 import {
   DollarLineIcon,
   ArrowUpIcon,
@@ -173,7 +174,7 @@ export default async function ClientDashboardPage() {
       {/* ROW 1 — hero + metrics */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Hero balance */}
-        <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]">
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03]">
           <div className="flex items-start justify-between">
             <div>
               <h2 className="font-semibold text-gray-800 dark:text-white/90">
@@ -188,7 +189,7 @@ export default async function ClientDashboardPage() {
             </span>
           </div>
 
-          <div className="mt-5">
+          <div className="mt-4">
             <h3 className="text-title-md font-bold text-gray-800 dark:text-white/90">
               {formatMoney(balanceNum, currency)}
             </h3>
@@ -198,11 +199,11 @@ export default async function ClientDashboardPage() {
           </div>
 
           {/* full-width sparkline */}
-          <div className="mt-2 -mx-1 h-[70px]">
-            <BalanceSparkline data={spark} />
+          <div className="mt-2 -mx-1 h-[52px] overflow-hidden">
+            <BalanceSparkline data={spark} height={52} />
           </div>
 
-          <div className="my-4 border-t border-dashed border-gray-200 dark:border-gray-800" />
+          <div className="my-3 border-t border-dashed border-gray-200 dark:border-gray-800" />
 
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="text-sm">
@@ -218,31 +219,38 @@ export default async function ClientDashboardPage() {
                 routing="BANKUS33XXX"
                 currency={currency}
                 balance={formatMoney(balanceNum, currency)}
-                status={wallet.isLocked ? "Paused" : "Active"}
+                status={wallet.isLocked ? "Suspended" : "Active"}
                 memberSince={memberSince}
                 accountType="Premium Wallet"
               />
             </div>
           </div>
 
-          <div className="mt-5 flex gap-3">
+          <div className="mt-4 flex gap-3">
             <TransferLauncher
-              payees={payees}
-              disabled={disabled}
+              beneficiaries={payees}
               currency={currency}
               holder={fullName}
               last4={last4}
               triggerLabel="Transfer"
-              triggerClassName="flex flex-1 items-center justify-center gap-2 rounded-lg bg-brand-500 px-4 py-3 text-sm font-medium text-white transition hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-50"
+              triggerClassName="flex flex-1 items-center justify-center gap-2 rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-50"
             />
-            <Link
-              href="/client/transactions"
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-white/[0.03]"
-            >
-              <ArrowDownIcon />
-              Received
-            </Link>
+            <WithdrawLauncher
+              currency={currency}
+              holder={fullName}
+              last4={last4}
+              balance={balanceNum}
+              triggerLabel="Withdraw"
+              triggerClassName="flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-white/[0.03]"
+            />
           </div>
+          <Link
+            href="/client/transactions"
+            className="mt-2.5 flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white/[0.03]"
+          >
+            <ArrowDownIcon />
+            Received
+          </Link>
         </div>
 
         {/* 2x2 metrics */}
@@ -313,7 +321,7 @@ export default async function ClientDashboardPage() {
             holder={fullName}
             last4={last4}
             expiry={expiry}
-            status={wallet.isLocked ? "Paused" : "Active"}
+            status={wallet.isLocked ? "Suspended" : "Active"}
           />
 
           <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03]">
@@ -477,7 +485,7 @@ export default async function ClientDashboardPage() {
                     <td className="px-6 py-4">
                       {t.status === "BLOCKED" ? (
                         <span className="rounded-full bg-error-50 px-2.5 py-0.5 text-xs font-medium text-error-600 dark:bg-error-500/15 dark:text-error-400">
-                          Paused
+                          On Hold
                         </span>
                       ) : (
                         <span className="rounded-full bg-success-50 px-2.5 py-0.5 text-xs font-medium text-success-600 dark:bg-success-500/15 dark:text-success-500">
@@ -518,15 +526,15 @@ function MetricCard({
     info: "bg-blue-light-50 text-blue-light-600 dark:bg-blue-light-500/15 dark:text-blue-light-500",
   };
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03]">
+    <div className="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-white/[0.03]">
       <div className="flex items-start justify-between">
         <span className="text-sm text-gray-500 dark:text-gray-400">{label}</span>
         <span className={`flex h-8 w-8 items-center justify-center rounded-lg ${chip[accent]}`}>
           {icon}
         </span>
       </div>
-      <h4 className="mt-3 text-2xl font-bold text-gray-800 dark:text-white/90">{value}</h4>
-      {delta && <div className="mt-2">{delta}</div>}
+      <h4 className="mt-2 text-2xl font-bold text-gray-800 dark:text-white/90">{value}</h4>
+      {delta && <div className="mt-1">{delta}</div>}
     </div>
   );
 }

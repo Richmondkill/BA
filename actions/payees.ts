@@ -14,7 +14,11 @@ export async function createPayee(formData: FormData): Promise<ActionResult> {
     clientId: formData.get("clientId"),
     name: formData.get("name"),
     bankName: formData.get("bankName"),
+    institutionNumber: formData.get("institutionNumber"),
+    transitNumber: formData.get("transitNumber"),
     accountNumber: formData.get("accountNumber"),
+    swift: formData.get("swift") || undefined,
+    address: formData.get("address") || undefined,
   });
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid input" };
@@ -34,7 +38,11 @@ export async function createPayee(formData: FormData): Promise<ActionResult> {
     data: {
       name: parsed.data.name,
       bankName: parsed.data.bankName,
+      institutionNumber: parsed.data.institutionNumber,
+      transitNumber: parsed.data.transitNumber,
       accountNumber: parsed.data.accountNumber,
+      swift: parsed.data.swift || null,
+      address: parsed.data.address || null,
       clientId: client.id,
       createdById: session.user.id,
     },

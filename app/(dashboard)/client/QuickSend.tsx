@@ -44,7 +44,7 @@ export default function QuickSend({
     if (blocked) return;
     if (!selected) {
       setStatus("error");
-      setMessage("Choose a payee to send to.");
+      setMessage("Choose a beneficiary to send to.");
       return;
     }
     if (!(Number(amount) > 0)) {
@@ -62,7 +62,7 @@ export default function QuickSend({
     if (res.ok) {
       setStatus("success");
       setMessage(
-        `${formatMoney(Number(amount), currency)} sent to ${payee?.name ?? "payee"}`
+        `${formatMoney(Number(amount), currency)} sent to ${payee?.name ?? "beneficiary"}`
       );
       setAmount("");
       router.refresh();
@@ -86,13 +86,13 @@ export default function QuickSend({
 
       {payees.length === 0 ? (
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          No payees yet — your admin will add them.
+          No beneficiaries yet — your admin will add them.
         </p>
       ) : (
         <>
           {disabled && status !== "success" && (
             <div className="mb-4 rounded-lg border border-warning-200 bg-warning-50 px-4 py-3 text-sm text-warning-700 dark:border-warning-500/30 dark:bg-warning-500/10 dark:text-warning-400">
-              Transfers are paused on this account. Please contact support to
+              Transfers are suspended on this account. Please contact support to
               restore access.
             </div>
           )}

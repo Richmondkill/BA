@@ -11,7 +11,7 @@ export default async function ClientPayeesPage() {
   return (
     <div>
       <h1 className="mb-1 text-title-sm font-bold text-gray-800 dark:text-white/90">
-        Payees
+        Beneficiaries
       </h1>
       <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
         People and accounts you can pay. These are set up by your administrator.
@@ -19,7 +19,7 @@ export default async function ClientPayeesPage() {
 
       {payees.length === 0 ? (
         <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center text-sm text-gray-500 dark:border-gray-800 dark:bg-white/[0.03] dark:text-gray-400">
-          No payees assigned yet. Please contact support.
+          No beneficiaries assigned yet. Please contact support.
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

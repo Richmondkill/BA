@@ -2,6 +2,7 @@ import { requireRole } from "@/lib/rbac";
 import { prisma } from "@/lib/prisma";
 import { formatMoney } from "@/lib/money";
 import TransferLauncher from "../TransferLauncher";
+import WithdrawLauncher from "../WithdrawLauncher";
 import { PaperPlaneIcon } from "@/icons";
 
 export default async function TransferPage() {
@@ -21,13 +22,9 @@ export default async function TransferPage() {
   }
 
   const payees = wallet.user.payees;
-  // Note: we deliberately do NOT disable the button when the wallet is locked or
-  // over its transfer allowance. The client is allowed to *attempt* the transfer;
-  // the server logs a BLOCKED audit row and returns the "contact support" message,
-  // which the launcher surfaces as the "paused" modal.
-  const disabled = payees.length === 0;
   const holder = wallet.user.name ?? "";
   const last4 = wallet.id.replace(/[^0-9]/g, "").slice(-4).padStart(4, "0");
+  const balanceNum = wallet.balance.toNumber();
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
@@ -40,14 +37,6 @@ export default async function TransferPage() {
         </p>
       </div>
 
-      {payees.length === 0 && (
-        <div className="rounded-2xl border border-warning-200 bg-warning-50 p-5 dark:border-warning-500/30 dark:bg-warning-500/10">
-          <p className="text-sm text-warning-700 dark:text-warning-400">
-            You have no payees assigned yet. Please contact support.
-          </p>
-        </div>
-      )}
-
       {/* Hero send card */}
       <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]">
         <div className="flex flex-col items-center gap-4 py-4 text-center">
@@ -59,37 +48,52 @@ export default async function TransferPage() {
               Start a new transfer
             </h3>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              Choose a payee and amount — we&apos;ll handle the rest.
+              Wire or EFT to any Canadian bank account — we&apos;ll handle the rest.
             </p>
           </div>
-          <TransferLauncher
-            payees={payees}
-            disabled={disabled}
-            currency={wallet.currency}
-            holder={holder}
-            last4={last4}
-            triggerLabel="New transfer"
-          />
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <TransferLauncher
+              beneficiaries={payees}
+              currency={wallet.currency}
+              holder={holder}
+              last4={last4}
+              triggerLabel="New transfer"
+            />
+            <WithdrawLauncher
+              currency={wallet.currency}
+              holder={holder}
+              last4={last4}
+              balance={balanceNum}
+              triggerLabel="Withdraw"
+            />
+          </div>
         </div>
       </div>
 
-      {/* Quick send to payees */}
+      {/* Saved beneficiaries — quick prefill into an EFT transfer */}
       {payees.length > 0 && (
         <div>
           <h3 className="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-300">
-            Quick send
+            Saved beneficiaries
           </h3>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {payees.map((p) => (
               <TransferLauncher
                 key={p.id}
-                payees={payees}
-                disabled={disabled}
+                beneficiaries={payees}
                 currency={wallet.currency}
                 holder={holder}
                 last4={last4}
-                defaultPayeeId={p.id}
-                triggerClassName="flex w-full items-center justify-between gap-3 rounded-2xl border border-gray-200 bg-white p-4 text-left transition hover:border-brand-300 hover:shadow-theme-sm disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-800 dark:bg-white/[0.03] dark:hover:border-brand-500/40"
+                prefill={{
+                  recipientName: p.name,
+                  bankName: p.bankName,
+                  accountNumber: p.accountNumber,
+                  institutionNumber: p.institutionNumber ?? undefined,
+                  transitNumber: p.transitNumber ?? undefined,
+                  swift: p.swift ?? undefined,
+                  address: p.address ?? undefined,
+                }}
+                triggerClassName="flex w-full items-center justify-between gap-3 rounded-2xl border border-gray-200 bg-white p-4 text-left transition hover:border-brand-300 hover:shadow-theme-sm dark:border-gray-800 dark:bg-white/[0.03] dark:hover:border-brand-500/40"
                 triggerContent={
                   <>
                     <span className="flex min-w-0 items-center gap-3">

@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import AuthCarousel from "./AuthCarousel";
-import LoginForm from "./LoginForm";
+import AuthCarousel from "../login/AuthCarousel";
+import RegisterForm from "./RegisterForm";
 
 const LOGO_SRC = "/scotiabanklogo.png";
 
@@ -23,27 +23,27 @@ function AuthPanel() {
           </span>
         </div>
         <h1 className="text-title-sm font-bold text-gray-800 dark:text-white/90">
-          Sign in
+          Create your account
         </h1>
         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-          Enter your credentials to access your dashboard.
+          Open a wallet in a minute — no paperwork required.
         </p>
       </div>
-      <LoginForm />
+      <RegisterForm />
       <p className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
-        Don&apos;t have an account?{" "}
+        Already have an account?{" "}
         <Link
-          href="/register"
+          href="/login"
           className="font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400"
         >
-          Sign up
+          Sign in
         </Link>
       </p>
     </div>
   );
 }
 
-export default function LoginExperience({ year }: { year: number }) {
+export default function RegisterExperience({ year }: { year: number }) {
   const [showMobileAuth, setShowMobileAuth] = useState(false);
 
   return (

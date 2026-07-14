@@ -61,3 +61,8 @@ export type Payee = Prisma.PayeeModel
  * 
  */
 export type Transaction = Prisma.TransactionModel
+/**
+ * Model Withdrawal
+ * 
+ */
+export type Withdrawal = Prisma.WithdrawalModel

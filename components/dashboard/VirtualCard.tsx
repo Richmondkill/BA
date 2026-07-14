@@ -11,7 +11,7 @@ export default function VirtualCard({
   holder: string;
   last4: string;
   expiry: string;
-  status?: "Active" | "Paused";
+  status?: "Active" | "Suspended";
   tier?: string;
   bin?: string;
 }) {
