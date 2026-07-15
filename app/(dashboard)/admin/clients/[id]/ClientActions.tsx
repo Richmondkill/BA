@@ -9,14 +9,12 @@ import {
   resetClientPassword,
   deleteClient,
 } from "@/actions/clients";
-import { createPayee } from "@/actions/payees";
 import { useModal } from "@/hooks/useModal";
 import { Modal } from "@/components/ui/modal";
 import Button from "@/components/ui/button/Button";
 import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
 import {
-  PlusIcon,
   DollarLineIcon,
   MailIcon,
   PencilIcon,
@@ -76,83 +74,6 @@ export function FundWalletButton({ clientId }: { clientId: string }) {
             </Button>
             <Button type="submit" size="sm" disabled={pending}>
               {pending ? "Funding…" : "Add funds"}
-            </Button>
-          </div>
-        </form>
-      </Modal>
-    </>
-  );
-}
-
-export function AddPayeeButton({ clientId }: { clientId: string }) {
-  const router = useRouter();
-  const { isOpen, openModal, closeModal } = useModal();
-  const [error, setError] = useState<string | null>(null);
-  const [pending, setPending] = useState(false);
-
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setPending(true);
-    setError(null);
-    const fd = new FormData(e.currentTarget);
-    fd.set("clientId", clientId);
-    const res = await createPayee(fd);
-    setPending(false);
-    if (!res.ok) return setError(res.error);
-    closeModal();
-    router.refresh();
-  }
-
-  return (
-    <>
-      <Button size="sm" variant="outline" startIcon={<PlusIcon />} onClick={openModal}>
-        Add beneficiary
-      </Button>
-      <Modal isOpen={isOpen} onClose={closeModal} className="m-4 max-w-[440px] p-6">
-        <h3 className="mb-1 text-lg font-semibold text-gray-800 dark:text-white/90">
-          Add beneficiary
-        </h3>
-        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-          This beneficiary will be visible to the client to pay.
-        </p>
-        <form onSubmit={onSubmit} className="space-y-4">
-          {error && <ErrorBox msg={error} />}
-          <div>
-            <Label htmlFor="name">Beneficiary name</Label>
-            <Input id="name" name="name" placeholder="Acme Supplies" />
-          </div>
-          <div>
-            <Label htmlFor="bankName">Bank</Label>
-            <Input id="bankName" name="bankName" placeholder="Scotiabank" />
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <Label htmlFor="institutionNumber">Institution no.</Label>
-              <Input id="institutionNumber" name="institutionNumber" placeholder="002" />
-            </div>
-            <div>
-              <Label htmlFor="transitNumber">Transit no.</Label>
-              <Input id="transitNumber" name="transitNumber" placeholder="00152" />
-            </div>
-          </div>
-          <div>
-            <Label htmlFor="accountNumber">Account number</Label>
-            <Input id="accountNumber" name="accountNumber" placeholder="0123456789" />
-          </div>
-          <div>
-            <Label htmlFor="swift">SWIFT / BIC (optional)</Label>
-            <Input id="swift" name="swift" placeholder="NOSCCATT" />
-          </div>
-          <div>
-            <Label htmlFor="address">Beneficiary address (optional)</Label>
-            <Input id="address" name="address" placeholder="Street, city, province, postal code" />
-          </div>
-          <div className="flex justify-end gap-3 pt-2">
-            <Button type="button" variant="outline" size="sm" onClick={closeModal}>
-              Cancel
-            </Button>
-            <Button type="submit" size="sm" disabled={pending}>
-              {pending ? "Saving…" : "Save beneficiary"}
             </Button>
           </div>
         </form>

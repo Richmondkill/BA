@@ -114,8 +114,10 @@ model Payee {
   swift             String?
   address           String?
 
-  clientId String
-  client   User   @relation("ClientPayees", fields: [clientId], references: [id], onDelete: Cascade)
+  // Nullable so an admin can create an unassigned beneficiary and assign it to
+  // a client later.
+  clientId String?
+  client   User?   @relation("ClientPayees", fields: [clientId], references: [id], onDelete: Cascade)
 
   createdById String
   createdBy   User   @relation("PayeeCreatedBy", fields: [createdById], references: [id])

@@ -198,7 +198,7 @@ export type PayeeGroupByOutputType = {
   transitNumber: string | null
   swift: string | null
   address: string | null
-  clientId: string
+  clientId: string | null
   createdById: string
   createdAt: Date
   updatedAt: Date
@@ -234,11 +234,11 @@ export type PayeeWhereInput = {
   transitNumber?: Prisma.StringNullableFilter<"Payee"> | string | null
   swift?: Prisma.StringNullableFilter<"Payee"> | string | null
   address?: Prisma.StringNullableFilter<"Payee"> | string | null
-  clientId?: Prisma.StringFilter<"Payee"> | string
+  clientId?: Prisma.StringNullableFilter<"Payee"> | string | null
   createdById?: Prisma.StringFilter<"Payee"> | string
   createdAt?: Prisma.DateTimeFilter<"Payee"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Payee"> | Date | string
-  client?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  client?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   transactions?: Prisma.TransactionListRelationFilter
 }
@@ -252,7 +252,7 @@ export type PayeeOrderByWithRelationInput = {
   transitNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   swift?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
-  clientId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -273,11 +273,11 @@ export type PayeeWhereUniqueInput = Prisma.AtLeast<{
   transitNumber?: Prisma.StringNullableFilter<"Payee"> | string | null
   swift?: Prisma.StringNullableFilter<"Payee"> | string | null
   address?: Prisma.StringNullableFilter<"Payee"> | string | null
-  clientId?: Prisma.StringFilter<"Payee"> | string
+  clientId?: Prisma.StringNullableFilter<"Payee"> | string | null
   createdById?: Prisma.StringFilter<"Payee"> | string
   createdAt?: Prisma.DateTimeFilter<"Payee"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Payee"> | Date | string
-  client?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  client?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   transactions?: Prisma.TransactionListRelationFilter
 }, "id">
@@ -291,7 +291,7 @@ export type PayeeOrderByWithAggregationInput = {
   transitNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   swift?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
-  clientId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -312,7 +312,7 @@ export type PayeeScalarWhereWithAggregatesInput = {
   transitNumber?: Prisma.StringNullableWithAggregatesFilter<"Payee"> | string | null
   swift?: Prisma.StringNullableWithAggregatesFilter<"Payee"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"Payee"> | string | null
-  clientId?: Prisma.StringWithAggregatesFilter<"Payee"> | string
+  clientId?: Prisma.StringNullableWithAggregatesFilter<"Payee"> | string | null
   createdById?: Prisma.StringWithAggregatesFilter<"Payee"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Payee"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Payee"> | Date | string
@@ -329,7 +329,7 @@ export type PayeeCreateInput = {
   address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  client: Prisma.UserCreateNestedOneWithoutPayeesInput
+  client?: Prisma.UserCreateNestedOneWithoutPayeesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPayeesInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutPayeeInput
 }
@@ -343,7 +343,7 @@ export type PayeeUncheckedCreateInput = {
   transitNumber?: string | null
   swift?: string | null
   address?: string | null
-  clientId: string
+  clientId?: string | null
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -361,7 +361,7 @@ export type PayeeUpdateInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  client?: Prisma.UserUpdateOneRequiredWithoutPayeesNestedInput
+  client?: Prisma.UserUpdateOneWithoutPayeesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPayeesNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutPayeeNestedInput
 }
@@ -375,7 +375,7 @@ export type PayeeUncheckedUpdateInput = {
   transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -391,7 +391,7 @@ export type PayeeCreateManyInput = {
   transitNumber?: string | null
   swift?: string | null
   address?: string | null
-  clientId: string
+  clientId?: string | null
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -419,7 +419,7 @@ export type PayeeUncheckedUpdateManyInput = {
   transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -636,7 +636,7 @@ export type PayeeCreateWithoutCreatedByInput = {
   address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  client: Prisma.UserCreateNestedOneWithoutPayeesInput
+  client?: Prisma.UserCreateNestedOneWithoutPayeesInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutPayeeInput
 }
 
@@ -649,7 +649,7 @@ export type PayeeUncheckedCreateWithoutCreatedByInput = {
   transitNumber?: string | null
   swift?: string | null
   address?: string | null
-  clientId: string
+  clientId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutPayeeInput
@@ -693,7 +693,7 @@ export type PayeeScalarWhereInput = {
   transitNumber?: Prisma.StringNullableFilter<"Payee"> | string | null
   swift?: Prisma.StringNullableFilter<"Payee"> | string | null
   address?: Prisma.StringNullableFilter<"Payee"> | string | null
-  clientId?: Prisma.StringFilter<"Payee"> | string
+  clientId?: Prisma.StringNullableFilter<"Payee"> | string | null
   createdById?: Prisma.StringFilter<"Payee"> | string
   createdAt?: Prisma.DateTimeFilter<"Payee"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Payee"> | Date | string
@@ -726,7 +726,7 @@ export type PayeeCreateWithoutTransactionsInput = {
   address?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  client: Prisma.UserCreateNestedOneWithoutPayeesInput
+  client?: Prisma.UserCreateNestedOneWithoutPayeesInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPayeesInput
 }
 
@@ -739,7 +739,7 @@ export type PayeeUncheckedCreateWithoutTransactionsInput = {
   transitNumber?: string | null
   swift?: string | null
   address?: string | null
-  clientId: string
+  clientId?: string | null
   createdById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -772,7 +772,7 @@ export type PayeeUpdateWithoutTransactionsInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  client?: Prisma.UserUpdateOneRequiredWithoutPayeesNestedInput
+  client?: Prisma.UserUpdateOneWithoutPayeesNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPayeesNestedInput
 }
 
@@ -785,7 +785,7 @@ export type PayeeUncheckedUpdateWithoutTransactionsInput = {
   transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -814,7 +814,7 @@ export type PayeeCreateManyCreatedByInput = {
   transitNumber?: string | null
   swift?: string | null
   address?: string | null
-  clientId: string
+  clientId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -874,7 +874,7 @@ export type PayeeUpdateWithoutCreatedByInput = {
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  client?: Prisma.UserUpdateOneRequiredWithoutPayeesNestedInput
+  client?: Prisma.UserUpdateOneWithoutPayeesNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutPayeeNestedInput
 }
 
@@ -887,7 +887,7 @@ export type PayeeUncheckedUpdateWithoutCreatedByInput = {
   transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutPayeeNestedInput
@@ -902,7 +902,7 @@ export type PayeeUncheckedUpdateManyWithoutCreatedByInput = {
   transitNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   swift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -951,7 +951,7 @@ export type PayeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.Payee$clientArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   transactions?: boolean | Prisma.Payee$transactionsArgs<ExtArgs>
   _count?: boolean | Prisma.PayeeCountOutputTypeDefaultArgs<ExtArgs>
@@ -970,7 +970,7 @@ export type PayeeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.Payee$clientArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["payee"]>
 
@@ -987,7 +987,7 @@ export type PayeeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.Payee$clientArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["payee"]>
 
@@ -1008,24 +1008,24 @@ export type PayeeSelectScalar = {
 
 export type PayeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "bankName" | "accountNumber" | "institutionNumber" | "transitNumber" | "swift" | "address" | "clientId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["payee"]>
 export type PayeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.Payee$clientArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   transactions?: boolean | Prisma.Payee$transactionsArgs<ExtArgs>
   _count?: boolean | Prisma.PayeeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PayeeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.Payee$clientArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type PayeeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.Payee$clientArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $PayeePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Payee"
   objects: {
-    client: Prisma.$UserPayload<ExtArgs>
+    client: Prisma.$UserPayload<ExtArgs> | null
     createdBy: Prisma.$UserPayload<ExtArgs>
     transactions: Prisma.$TransactionPayload<ExtArgs>[]
   }
@@ -1038,7 +1038,7 @@ export type $PayeePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     transitNumber: string | null
     swift: string | null
     address: string | null
-    clientId: string
+    clientId: string | null
     createdById: string
     createdAt: Date
     updatedAt: Date
@@ -1436,7 +1436,7 @@ readonly fields: PayeeFieldRefs;
  */
 export interface Prisma__PayeeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  client<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  client<T extends Prisma.Payee$clientArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Payee$clientArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   transactions<T extends Prisma.Payee$transactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Payee$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1878,6 +1878,25 @@ export type PayeeDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Payees to delete.
    */
   limit?: number
+}
+
+/**
+ * Payee.client
+ */
+export type Payee$clientArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

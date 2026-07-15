@@ -22,7 +22,7 @@ function StatusBadge({ status }: { status: TxRow["status"] }) {
   if (status === "BLOCKED")
     return (
       <span className="rounded-full bg-error-50 px-2.5 py-0.5 text-xs font-medium text-error-600 dark:bg-error-500/15 dark:text-error-400">
-        On Hold
+        Pending
       </span>
     );
   return (
@@ -176,7 +176,7 @@ export default function TransactionsTable({
                     selected.currency
                   )}`,
                   type: selected.type === "CREDIT" ? "Funding" : "Transfer",
-                  status: selected.status === "BLOCKED" ? "On Hold" : "Completed",
+                  status: selected.status === "BLOCKED" ? "Pending" : "Completed",
                   holder,
                   fromAccount: `•••• ${last4}`,
                   payeeName: selected.payee?.name,

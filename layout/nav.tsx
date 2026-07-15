@@ -30,6 +30,7 @@ export function navForRole(role: Role): NavItem[] {
   const items: NavItem[] = [
     { label: "Overview", href: "/admin", icon: <GridIcon /> },
     { label: "Clients", href: "/admin/clients", icon: <GroupIcon /> },
+    { label: "Beneficiaries", href: "/admin/beneficiaries", icon: <UserIcon /> },
     { label: "Withdrawals", href: "/admin/withdrawals", icon: <DownloadIcon /> },
     { label: "Transactions", href: "/admin/transactions", icon: <ListIcon /> },
   ];

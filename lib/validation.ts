@@ -63,7 +63,9 @@ export const fundWalletSchema = z.object({
 });
 
 export const createPayeeSchema = z.object({
-  clientId: z.string().min(1),
+  // Optional: omit to create an unassigned beneficiary the admin can hand to a
+  // client later.
+  clientId: z.string().optional(),
   name: z.string().min(2, "Beneficiary name is too short"),
   bankName: z.string().min(2, "Bank name is required"),
   institutionNumber: z
@@ -82,6 +84,11 @@ export const createPayeeSchema = z.object({
     .optional()
     .or(z.literal("")),
   address: z.string().max(200).optional(),
+});
+
+export const assignPayeeSchema = z.object({
+  payeeId: z.string().min(1),
+  clientId: z.string().min(1, "Choose a client"),
 });
 
 export const transferSchema = z.object({

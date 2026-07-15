@@ -13,7 +13,6 @@ import {
 import Badge from "@/components/ui/badge/Badge";
 import {
   FundWalletButton,
-  AddPayeeButton,
   UnlockButton,
   SendMailButton,
   ClientStatusButton,
@@ -21,6 +20,7 @@ import {
   ResetPasswordButton,
   DeleteClientButton,
 } from "./ClientActions";
+import { CreateBeneficiaryButton } from "../../BeneficiaryModals";
 
 export default async function ClientDetailPage({
   params,
@@ -76,7 +76,7 @@ export default async function ClientDetailPage({
           </div>
           <div className="flex flex-wrap gap-3">
             <SendMailButton email={client.email} name={client.name} />
-            <AddPayeeButton clientId={client.id} />
+            <CreateBeneficiaryButton clientId={client.id} />
             <FundWalletButton clientId={client.id} />
           </div>
         </div>
@@ -153,7 +153,7 @@ export default async function ClientDetailPage({
           <h3 className="font-semibold text-gray-800 dark:text-white/90">
             Beneficiaries
           </h3>
-          <AddPayeeButton clientId={client.id} />
+          <CreateBeneficiaryButton clientId={client.id} />
         </div>
         {client.payees.length === 0 ? (
           <p className="px-5 py-6 text-sm text-gray-500 dark:text-gray-400">

@@ -5,7 +5,7 @@ export type ReceiptData = {
   reference: string;
   amountLabel: string; // already formatted, e.g. "-$250.00"
   type: string; // "Transfer" | "Funding"
-  status: string; // "Completed" | "On Hold"
+  status: string; // "Completed" | "Pending"
   holder: string;
   fromAccount: string; // "•••• 0081"
   payeeName?: string;

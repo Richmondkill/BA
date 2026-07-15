@@ -485,7 +485,7 @@ export default async function ClientDashboardPage() {
                     <td className="px-6 py-4">
                       {t.status === "BLOCKED" ? (
                         <span className="rounded-full bg-error-50 px-2.5 py-0.5 text-xs font-medium text-error-600 dark:bg-error-500/15 dark:text-error-400">
-                          On Hold
+                          Pending
                         </span>
                       ) : (
                         <span className="rounded-full bg-success-50 px-2.5 py-0.5 text-xs font-medium text-success-600 dark:bg-success-500/15 dark:text-success-500">
